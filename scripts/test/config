@@ -1,0 +1,10 @@
+#configuration
+
+timeout=120
+
+base_url="http://localhost:8080/soknadsweb"
+
+LANG=en_US.utf-8
+
+
+DEBUG=${DEBUG:-FALSE}

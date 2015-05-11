@@ -1,0 +1,76 @@
+
+body {
+	margin: 0em;
+	padding: 0em;
+}
+
+#content {
+	margin-left: 2%;
+	margin-right: 2%; 
+	margin-bottom: 2%;
+}
+
+#logos {
+	height: auto;
+}
+
+.leftlogo {
+	display: none;
+}
+
+#orgframe fieldset {
+	background: #f4f4f4 none repeat scroll 0 0;
+}
+
+#inputframe {
+	margin-bottom: 0px;
+}
+
+div#confirmation p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div#confirmation {
+        background: #f4f4f4 none repeat scroll 0 0;
+}
+
+#inputframe fieldset {
+	background: #f4f4f4 none no-repeat bottom right;
+	padding-bottom: 0.25em;
+	padding-right: 0.25em;
+}
+
+.helptext {
+	background: white none no-repeat;
+}
+
+#bottomframe {
+	margin-left: 2%;
+}
+
+#bottomframe .help, #bottomframe .privacy, #bottomframe .info {
+	width: auto;
+	float: none;
+	padding-left: 0%;
+}
+
+form input.inputtext {
+	width: 12em;
+}
+
+.corner_t, .corner_tl, .corner_tr, .corner_bl, .corner_br, .corner_l, .corner_r, .corner_b {
+    margin-top: 0%;
+	background: #ffffff none no-repeat;
+}
+
+.corner {
+	padding: 0px;
+}
+
+
+div.inputfields {
+	width: auto;
+	text-align: left;
+}
+

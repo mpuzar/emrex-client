@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:fun="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default.xhtml">
+
+<ui:define name="body">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{nc.checkImportData()}"/>
+	</f:metadata>
+
+ 	<ui:include src="/WEB-INF/templates/infoPanel.xhtml"/>
+ 	
+	<h1>Import results</h1>
+
+	<h:form>
+	
+	<h:panelGroup layout="block" rendered="#{empty nc.resultaterXml}">
+		<label class="label">Fetch the results from:</label>
+		<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
+			id="country"
+			value="#{bruker.country}"
+			onchange="enableDisableFetch();"
+			>
+			<f:selectItem noSelectionOption="true" itemLabel=""/>
+		    <f:selectItem itemLabel="Finland" itemValue="FI"/>
+		    <f:selectItem itemLabel="Sweden" itemValue="SE"/>
+		    <f:selectItem itemLabel="Croatia" itemValue="HR"/>
+		</h:selectOneMenu>
+		<h:message styleClass="errorMessageInplace" for="country"/>
+
+		<h:commandButton 
+			value="Get me there"
+			id="fetch"
+			styleClass="green medium"
+			style="vertical-align: top; height: 37px; margin-left: 10px;"
+			action="#{nc.sendToCountry}"
+		/>
+		
+	</h:panelGroup>
+
+	</h:form> 
+	
+		
+	<h:panelGroup id="resultater" rendered="#{not empty nc.resultaterXml}">
+
+		<div id="results"/>
+		
+		<h:form id="importForm" >
+	
+			<input type="hidden" id="elmo" name="elmReport" value="#{nc.resultaterXml}"/>
+			
+			<p:commandButton  
+				value="Import results"
+				styleClass="green large marginTop"
+				style="background-image: url('resources/img/icons_d/24x24/Download-alt-24x24.png');
+				       background-repeat: no-repeat;
+				       background-position: 7px;
+				       padding-left: 38px;
+				       "
+				action="#{nc.importResults}"
+				onclick="updateXml();"
+				update=":messagesPanelGroup"
+			/>
+
+			<p:commandLink 
+				value="Reset"
+				id="reset"
+				styleClass="link cancel"
+				style="margin-left: 20px;"
+				ajax="false"
+				action="#{nc.tomResultater}"
+				oncomplete="fixSelect2();"
+			/>
+			
+			
+		</h:form>
+		
+		<script>
+			displayXml(true, '#{bruker.fodselsnummer}');
+		</script>
+
+	</h:panelGroup>
+	
+</ui:define>
+
+</ui:composition>

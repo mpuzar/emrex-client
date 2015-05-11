@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+
+<ui:define name="head">
+	<script>
+		jQuerySun(document).ready(function() {
+			fixFun();
+			fixErrorMessages();
+		});
+	</script>
+</ui:define>
+
+<ui:define name="body">
+	<script type="text/javascript" src="resources/js/select2_21_sun.js"/>
+
+	<h:form id="brukervalg" styleClass="input">
+
+		<h:panelGroup rendered="#{not identity.loggedIn and bruker.feidepalogget}">
+			<div id="mislykketpaalogging">
+				<h:outputText value="Feidepålogging lyktes for #{bruker.brukernavn}, men bruker ble ikke funnet i databasen." />
+				<br/>
+				<h:commandLink value="Klikk her for å logge ut fra Feide" action="#{logoutService.logout}"/>
+			</div>
+		</h:panelGroup>
+
+		<div class="login-module">
+			<h2>Login via Feide</h2>
+			<div style="height: 90px;">
+				<h:commandLink styleClass="link" style="border: 0;"
+					action="feidedump.xhtml"> <!-- {feideController.goFeide} -->
+					<img src="resources/img/logo-feide-111px.png" width="111" height="61" alt="Feide logo" style="vertical-align: middle;"/>
+				</h:commandLink>
+				<h:commandLink styleClass="link" style="margin-left:20px;"
+					value="Login into Norex via Feide"
+					action="feidedump.jsf"> <!-- {feideController.goFeide} -->
+				</h:commandLink>
+			</div>
+			<p>Feide - Felles Elektronisk IDEntitet - is the Ministry of Education and Research's chosen solution for secure identification within the education sector.</p> 
+		</div>
+
+		<div class="login-module" style="display: none;">
+			<h2>Direct login (temporary)</h2>
+
+			<div class="editFelt" style="display: block;">
+				<label class="label">Username</label>
+				<h:inputText id="brukernavn" value="#{bruker.brukernavn}" requiredMessage="You need to specify the username" />
+				<h:message styleClass="errorMessageInplace" for="brukernavn" />
+			</div>
+			
+			<p:commandButton ajax="false" styleClass="green large loginKnapp"
+				value="Login directly"
+				action="#{dummyLogin.login}">
+			</p:commandButton>			
+		</div>
+	
+
+	</h:form>
+	
+</ui:define>
+
+</ui:composition>

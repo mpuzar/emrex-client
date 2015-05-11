@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+
+<html xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fun="http://java.sun.com/jsf/composite/components"
+	>
+
+	<h:head>
+		<!-- Denne fikser HTML5-støtte i IE8 -->
+		<fun:ie8fix/>
+
+		<title>#{not empty arkfaneTittel ? arkfaneTittel : 'Studentweb'}</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<script type="text/javascript" src="resources/js/jquery-1.7.2_sun.js"/>
+		<script src="resources/js/fun.js?rev=#{webapp.version}"/>
+		
+		<script type="text/javascript" src="resources/js/custom.js"/>
+		<script type="text/javascript" src="resources/js/select2_33b_sun.js"/>
+		
+		<link href="resources/css/fun.css?rev=#{webapp.version}" media="screen" rel="stylesheet" type="text/css" />
+		<link href="resources/css/select2.css" rel="stylesheet" type="text/css" />
+
+		<link href="resources/css/norex.css" rel="stylesheet" type="text/css" />
+
+		<ui:insert name="head"/>
+		
+	</h:head>
+
+	<script>
+		jQuerySun(window).load(function() {
+			fixFun();
+		});
+
+		<ui:insert name="script"/>
+
+	</script>
+	
+	<h:body onLoad="fixwidths();">
+	
+		<!-- Topp-bar -->
+		<h:form>
+			<div id="bar-wrap">
+				<div id="bar">
+
+					<h:panelGroup rendered="#{identity.loggedIn}">
+						<h:panelGroup rendered="#{eec.emne != null}">
+							<div style="float: left; vertical-align: middle; width: 50px; height: 30px;" title="#{eec.emne.id.emnekode}">
+							</div>
+						</h:panelGroup>
+						<div class="dropdown">
+							<h:commandLink
+								action="/brukerinnstillinger.xhtml"
+								title="Brukerinnstillinger"
+								style="padding-right: 6px;"
+								>
+								<img style="margin: -5px 0 -5px 0; " class="iconHover" src="./resources/img/icons_d/24x24/Settings-24x24.png"/>
+							</h:commandLink>
+						</div>
+					 
+					</h:panelGroup>
+					
+					<div class="dropdown">
+						<h:panelGroup rendered="#{identity.loggedIn}">
+							<a id="brukernavn" class="dropdown-link arrow" href="#"><img style="margin: -5px 0 -5px 0;" class="iconHover" src="./resources/img/icons_d/24x24/User-24x24.png"/> #{bruker.brukernavn}</a>
+							<div class="dropdown-wrapper">
+								<ul>
+									<li>
+										<h:commandLink value="Logg ut" action="#{logoutService.logout}"/>
+									</li>
+								</ul>
+							</div>
+						</h:panelGroup>
+					</div>
+					
+					<h:panelGroup rendered="false">
+						<div class="dropdown">
+							<a class="dropdown-link arrow" href="#">Language: #{sessionTekstSelection.selectedLocaleNavn}</a>
+							<div class="dropdown-wrapper">
+								<ul>
+									<ui:repeat var="lang" value="#{sessionTekstSelection.localeNames}">
+										<li>
+											<h:commandLink rendered="#{lang != sessionTekstSelection.selectedLocaleNavn}" value="#{lang}" action="#{sessionTekstSelection.setLocaleCode(lang)}"/>
+											<h:outputText rendered="#{lang == sessionTekstSelection.selectedLocaleNavn}" value="#{lang}"/>
+										</li>
+									</ui:repeat>
+								</ul>
+							</div>
+						</div>
+					</h:panelGroup>
+					
+				</div>
+			</div>
+		</h:form>
+		
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<h1><a href="import.jsf">Studentweb</a></h1>
+				<h2>Univesity of Oslo</h2>
+			</div>
+		</header>
+
+		<div class="container">
+		
+			<!--  Menu venstre  --> 
+			<nav id="menuBar">
+				<ui:include src="norexmenu.xhtml" />
+			</nav>
+		
+			<!-- Innhold -->
+			<section>
+		      <div id="canvas">
+		
+		   	    <h:panelGroup id="messagesPanelGroup">
+		   	    	<h:messages styleClass="feedback-full" globalOnly="true"/>
+		   	    </h:panelGroup>	
+			    	<div id="content">
+			    		<ui:insert name="body"/>
+			    	</div>
+				
+		
+		      </div>
+			</section>
+		</div>
+
+	    <footer>
+			<div class="container">
+			<h:panelGroup id="footerContainer">
+				<ul>
+					<li>Studentweb (Norex) #{webapp.version}</li>
+				</ul>
+				</h:panelGroup>
+			</div>
+		</footer>
+
+	</h:body>
+</html>

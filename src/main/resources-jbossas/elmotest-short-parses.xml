@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elmo xmlns="http://purl.org/net/elmo" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<report>
+        <learner>
+            <identifier type="SSN">180766-2213</identifier>
+            <identifier type="studentindentifier">17488477125</identifier>
+            <fullName>Kaisa Keranen</fullName>
+            <givenNames>Kaisa</givenNames>
+            <familyName>Keranen</familyName>
+            <bday dtf="dd-MM-yyyy">18-07-1966</bday>
+            <placeOfBirth>Espoo</placeOfBirth>
+            <countryOfBirth>Finland</countryOfBirth>
+        </learner>
+        <issuer>
+            <identifier type="url">www.uta.fi</identifier>
+            <identifier type="stat.fi">01905</identifier>
+            <identifier type="Erasmus">SF TAMPERE01</identifier>
+            <title xml:lang="fi">Tampereen Yliopisto</title>
+            <title xml:lang="en">University of Tampere</title>
+        </issuer>
+</report>
+</elmo>

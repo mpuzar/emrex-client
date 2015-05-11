@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# params
+script_file=$1
+args_file=$2
+num_runs_before_sleep=10
+num_runs_before_long_sleep=20
+
+[[ -r $script_file ]] || { echo "cannot read script file $script_file"; exit 1; }
+[[ -r $args_file ]] || { echo "cannot read args file $args_file"; exit 1; }
+
+function cleanup {
+	kill -9 $spawn_pids
+	wait
+}
+ 
+function control_c {
+	echo -en "\n*** Interrupted ***\n"
+	cleanup
+	exit 1
+}
+
+#function main ()
+
+trap control_c SIGINT
+spawn_pids=""
+i=0
+start=$(date "+%s")
+while read line ; do
+        if [[ ${#line} -eq 0 ]] ; then continue; fi
+	remainder=$(echo "$i % $num_runs_before_sleep" || bc)
+	if [[ $i -gt 0 ]] && [[ $remainder -eq 0 ]]; then echo short sleep; sleep 2; fi
+	remainder=$(echo "$i % $num_runs_before_long_sleep" || bc)
+	if [[ $i -gt 0 ]] && [[ $remainder -eq 0 ]]; then echo long sleep; sleep 8; fi
+        echo ./waste.sh $script_file $line &
+        ./cwaste.sh $script_file $line &
+	last_pid=$!
+	spawn_pids="$spawn_pids $last_pid"
+	let launch_count=$launch_count-1
+        i=$(($i+1))
+done < $args_file
+
+sleep 1
+num_wait_files=$(ls -1 /dev/shm/cwaste*|wc -l)
+while [[ $num_wait_files -gt 0 ]]
+do
+	sleep 1
+	num_wait_files=$(ls -1 /dev/shm/cwaste* 2>/dev/null|wc -l)
+done
+stop=$(date "+%s")
+
+secs=$(($stop - start))
+echo did $i runs in $secs seconds
+
+wait
+exit 0

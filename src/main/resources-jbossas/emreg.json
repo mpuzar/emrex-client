@@ -1,0 +1,47 @@
+{
+  "countries": [{
+      "countryCode":  "FI",
+      "countryName":  "Finland",
+    },{
+      "countryCode":  "SE",
+      "countryName":  "Sweden"
+    },{
+      "countryCode":  "NO",
+      "countryName":  "Norway"
+    },{
+      "countryCode":  "IT",
+      "countryName":  "Italy",
+      "singleFetch":  "true"
+  }],
+  "ncps": [{
+    "acronym":      "CSC",
+    "institutions": ["Aalto-yliopisto", "Arcada", "Helsingin yliopisto"],
+    "countryCode":  "FI",
+    "url":          "http://virtawstesti.csc.fi/norex/",
+    "pubKey":       "-----BEGIN CERTIFICATE-----\nMIIB+TCCAWICCQDiZILVgSkjojANBgkqhkiG9w0BAQUFADBBMQswCQYDVQQGEwJG\n(......)\n-----END CERTIFICATE-----"
+  },{
+    "acronym":      "SEK",
+    "institutions": ["Umeå", "KTH"],
+    "countryCode":  "SE",
+    "url":          "http://www.aftonbladet.se/",
+    "pubKey":       "-----BEGIN CERTIFICATE-----\nMIIB+zCCAWQCCQDFl6qyaXVcDTANBgkqhkiG9w0BAQUFADBCMQswCQYDVQQGEwJT\n(......)\n-----END CERTIFICATE-----"
+  },{
+    "acronym":      "FSAT",
+    "institutions": ["Universitetet i Oslo", "NTNU"],
+    "countryCode":  "NO",
+    "url":          "https://fsweb.no/ncp/",
+    "pubKey":       "-----BEGIN CERTIFICATE-----\nMIIB9TCCAV4CCQDzcL/uks2ttjANBgkqhkiG9w0BAQUFADA/MQswCQYDVQQGEwJO\n(......)\n-----END CERTIFICATE-----"
+  },{
+    "acronym":      "UNIVR",
+    "institutions": ["University of Verona"],
+    "countryCode":  "IT",
+    "url":          "https://www.univr.it/ncp/",
+    "pubKey":       "-----BEGIN CERTIFICATE-----\nMIIB9TCCAV4CCQDzcL/uks2ttjANBgkqhkiG9w0BAQUFADA/MQswCQYDVQQGEwJO\n(......)\n-----END CERTIFICATE-----"
+  },{
+    "acronym":      "UNISI",
+    "institutions": ["University of Siena"],
+    "countryCode":  "IT",
+    "url":          "https://www.unisi.it/ncp/",
+    "pubKey":       "-----BEGIN CERTIFICATE-----\nMIIB9TCCAV4CCQDzcL/uks2ttjANBgkqhkiG9w0BAQUFADA/MQswCQYDVQQGEwJO\n(......)\n-----END CERTIFICATE-----"
+  }]
+}

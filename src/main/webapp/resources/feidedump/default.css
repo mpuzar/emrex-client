@@ -1,0 +1,423 @@
+body {
+	font-family: sans-serif;
+	padding-left: 2em;
+	padding-right: 2em;
+	text-align: center;
+}
+
+#content {
+	text-align: left;
+	margin-left: 7%;
+	margin-right: 7%; 
+	margin-bottom: 5%;
+}
+
+div.preferredidp {
+	border: 1px dashed #ccc;
+	background: #eee;
+	padding: 2px 2em 2px 2em;       
+}
+
+
+#borderframe {
+	border: 1px solid #777;
+	margin-left: 20%;
+	margin-right: 20%;
+	margin-top: 2%;
+	border: 1px solid #777;
+}
+
+#bottomframe {
+    max-width: 900px;
+	margin-top: 5px;
+	text-align: left;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+
+#logos {
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
+#logos .minheight {
+	height: 60px;
+	width: 0px;
+	padding: 0;
+	border: 0;
+	margin: 0;
+	float: left;
+}
+
+#languageframe {
+	text-align: right;
+	font-size: small;
+	padding-right: 1.5em;
+	padding-top: 0.75em;
+}
+
+.leftlogo {
+	float: left;
+	border: none;
+	margin: 10px;
+}
+
+.rightlogo {
+	float: right;
+	margin-left: 5px;
+}
+
+#errorframe {
+	padding: 0 1em;
+	font-weight: bold;
+	text-align: center; 
+	border: 2px solid #8B5A2B;
+	margin-bottom: 1em;
+}
+
+#errorcode {
+	font-size: small;
+	color: rgb(125,125,125);
+	font-weight: normal;
+	text-align: right; 
+	padding: 0 1em;
+	margin-bottom: 1em;
+}
+
+#consentframe {
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 5%;
+}
+
+#orgframe {
+	margin-bottom: 5%;
+}
+
+#orgframe select {
+	margin-bottom: 0.5em;
+	max-width: 90%;
+}
+
+#orgframe fieldset {
+	background: #f4f4f4 url('feidevannmerke-small.gif') no-repeat bottom right;
+	padding-bottom: 0.25em;
+	padding-right: 0.25em;
+}
+
+#inputframe {
+	margin-bottom: 5%;
+}
+
+div#confirmation p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+div#confirmation {
+        background: #f4f4f4 url('feidevannmerke-small.gif') no-repeat bottom right;
+        margin: 0.5em;
+        padding: 1.6em 1em 1.6em 1em;
+        border: 1px solid #ccc;
+}
+
+div#confirmation input {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#inputframe fieldset {
+	background: #f4f4f4 url('feidevannmerke.gif') no-repeat bottom right;
+	padding-bottom: 0.25em;
+	padding-right: 0.25em;
+}
+
+#rechooseorgframe {
+	margin-bottom: 3%;
+}
+
+#helpframe {
+	clear: both;
+}
+
+#loginhelpframe {
+	clear: both;
+}
+
+.helptext {
+	background: white url('toppgradient-60px.png') repeat-x;
+	padding: 1px 12% 2% 12%;
+}
+
+#infoframe {
+	clear: both;
+}
+
+#privacyframe {
+	clear: both;
+}
+
+.ui-tabs-nav a, .ui-tabs-nav a:hover {
+	border: none;
+	border-bottom: inherit;
+	margin-bottom: auto;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+	border-bottom: 1px dotted #999;
+	margin-bottom: 2px;
+}
+a.link, .loginhelp {
+	cursor: pointer;
+	float: right;
+	font-size: small;
+	border-bottom: 1px dotted #999;
+	margin-bottom: 2px;
+}
+
+a:hover, a.link:hover, .loginhelp:hover {
+	border-bottom: 2px solid #333;
+	margin-bottom: 1px;
+}
+
+.loginhelp-static {
+	font-weight: bold;
+	padding-top: 1em;
+}
+
+#bottomframe .help {
+	width: 18%;
+	float: left;
+	font-size: small;
+	margin-bottom: 10px;
+	padding-left: 12%;
+}
+
+#bottomframe .privacy {
+	width: 18%;
+	float: left;
+	font-size: small;
+	margin-bottom: 10px;
+	padding-left: 14%;
+}
+
+#bottomframe .info {
+/*	width: 18%; */
+	float: left;
+	font-size: small;
+	margin-bottom: 10px;
+	padding-left: 13%;
+}
+
+fieldset legend {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: black;
+}
+
+form label { 
+	padding: 0 0.3em 0 0; 
+	margin: 5px 0 0; /* set top margin same as form input - textarea etc. elements */
+}
+
+form input.inputtext {
+	width: 200px;
+}
+
+div.inputfields {
+	width: 55%;
+	text-align: right;
+	padding-bottom: 1em;
+}
+
+div.inputfields p {
+	margin-bottom: 0.5em;
+}
+
+form .submit {
+	margin-top: 0.25em;
+}
+
+/* powered by http://mierendo.com/software/rounded_css_boxes/ */
+.corner_tl, .corner_t, .corner_tr, .corner_l, .corner_r, .corner_bl, .corner_b, .corner_br, .corner {
+    width: auto;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    position: relative;
+}
+
+.corner_t {
+    /*
+     change this div to layout the whole box (width, height, float, margin, ...)
+     example lines:
+       width: 60%;
+       margin: 7px 35px 0px 1px
+       to change distance to content/text scroll to class ".corner" and change the padding
+    */
+/*    margin-left: 20%;
+    margin-right: 20%; */
+    margin-top: 1%;
+    max-width: 900px;
+    text-align: left;
+
+    background-color: #ffffff;
+    background-image: url('corner_border.png');
+    background-repeat: repeat-x;
+    background-position: top;
+}
+.corner_tl {
+    height: 100%;
+    background-image: url('corner_topleft.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+}
+.corner_tr {
+    height: 100%;
+    background-image: url('corner_topright.png');
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+.corner_bl {
+    height: 100%;
+    background-image: url('corner_bottomleft.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+.corner_br {
+    height: 100%;
+    background-image: url('corner_bottomright.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+.corner {
+    height: 100%;
+    /* change this if you want to change the distance distance to text/content */
+    padding: 12.5px 13.5px 12.5px 13.5px;
+}
+
+.corner_l {
+    height: 100%;
+    background-image: url('corner_border.png');
+    background-repeat: repeat-y;
+    background-position: left;
+}
+.corner_r {
+    height: 100%;
+    background-image: url('corner_border.png');
+    background-repeat: repeat-y;
+    background-position: right;
+}
+.corner_b {
+    height: 100%;
+    background-image: url('corner_border.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+}
+
+/* Style related to table showing attributes in consent and example-login */
+table.attributes {
+        width: 100%;
+        margin: 0px;
+        border: 1px solid #bbb;
+        border-collapse: collapse;
+}
+
+caption {
+	display: none;
+}
+
+table.attributes td.attrname {
+        text-align: right;
+}
+
+table.attributes tr.even td {
+        background: #eee;
+}
+
+tr.ldap-result-row:nth-child(odd) td {
+        background: #eee;
+}
+
+table.attributes tr td {
+        border-bottom: 1px solid #bbb; 
+        border-left: 0px;
+        border-right: 0px;      
+        background: #fff;
+        padding-top: 5px;
+        padding-left: 1em;
+        padding-right: 1em;
+        
+        vertical-align: top;
+}
+
+table#table_with_attributes tr:last-child td {
+        border-bottom: none;
+}
+
+.consent_showattributelink {
+	color:#666;
+	font-size:small;
+}
+
+/* Related to showing metadata */
+.metadatabox {
+        overflow: scroll; 
+        border: 1px solid #eee; 
+        padding: 2px;
+}
+
+/* Enable box on front page */
+.enablebox table {
+	border: 1px solid #eee;
+
+	margin-left: 1em;
+}
+.enablebox.mini table {
+	float: right;
+}
+.enablebox tr td {
+	padding: .5px 1em 1px .5em;
+	margin: 0px;
+}
+.enablebox {
+	font-size: 85%;
+}
+.enablebox tr.enabled td {
+	background: #eee;
+}
+.enablebox tr.disabled td {
+	background: #ccc;
+}
+
+/* Enable fancyfields */
+fieldset.fancyfieldset {
+        margin: 2em 1em 1em 0px;
+        border: 1px solid #bbb;
+}
+fieldset.fancyfieldset legend {
+        margin-left: 2em;
+        padding: 3px 2em 3px 2em;
+        border: 1px solid #bbb;
+}
+
+/* Login notification box */
+.login-notification {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding: 0px 0.5em;
+	border: 1px solid black;
+	background-color: #fff7c8;
+}
+.login-notification p {
+	margin: 0.5em 0px;
+}
+.login-notification .login-notification-link {
+	font-size: 85%;
+}
+/* Used on admin login page. */
+#mobilesubmit {
+	display: none;
+}

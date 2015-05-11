@@ -1,0 +1,157 @@
+=====================================================
+         HENT KILDEKODE FOR PROSJEKTET MED SVN
+=====================================================
+
+Før du kan lese denne filen lokalt har du sjekket ut prosjektet fra SVN repository - enten via eclipse eller direkte med svn i kommandolinjen.
+Har du sjekket ut prosjektet i Eclipse så må du slette prosjektet uten å slette filene. Deretter bygger du prosjektet.
+
+=====================================================
+         VERKTØY - ECLIPSE
+=====================================================
+For JBoss 7-muligheter bruk Eclipse 3.7 (Indigo) eller ekvivalent i Jboss developer studio (når det kommer). 
+http://www.eclipse.org/downloads/packages/eclipse-classic-37/indigor
+Pakk ut i Linux: tar -zxvf eclipse-SDK-3.7-linux-gtk-x86_64.tar.gz Den legger seg i en mappe med navnet Eclipse. 
+Endre ./eclipse/eclipse.ini filen for å sikre mer minneplass itl å kjøre applikasjonen:
+org.eclipse.platform
+--launcher.XXMaxPermSize
+512m
+--launcher.defaultAction
+openFile
+-vmargs
+-Xms256m
+-Xmx1024m
+
+
+=====================================================
+         BYGGING
+=====================================================
+For aa bygge trengs:
+
+- Maven 3 (maven.apache.org)
+- java 6
+
+
+etter utsjekking fra svn kan prosjektet bygges slik:
+- mvn package
+
+
+for aa bruke Nexus-repoet paa utv.uio.no, kan du legge til flg i mavens konfigfil, settings.xml.
+For Linux finner du filen her:${user.home}/.m2/settings.xml
+For Windows finner du filen her: Program Files/apache-maven 3.0.3/conf/settings.xml
+
+Her kan du legge til følgende info:
+
+    <mirror>
+      <!--This sends everything else to /public -->
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://repo.usit.uio.no/nexus/content/groups/public</url>
+    </mirror>
+
+Hvis man vil bruke maven plugin, og man allerede har et repository på disken som man
+sharer med cmdline-maven, så må man sette dette opp FØR man importerer et prosjekt. Se under "Kjekt å ha" for detaljer.
+I Eclipse, under Window -> Preferences -> Maven -> Installations -> Global settings:
+legg til path'n til conf/settings.xml (til selve fila altså) i Maven-katelog på din maskin.
+
+=====================================================
+         KJEKT Å HA
+=====================================================
+For aa jobbe i Eclipse saa trenger du en Eclipse plugin.
+Help>Install New Software
+Maven plugin vil bli automatisk installert sammen med Jboss Tools Support. 
+
+Hvis man vi installere jboss tools manuellt så kan man ved å legge til følgende sites(NB! eclipse ver 3.7 er dette testet med)
+
+http://download.jboss.org/jbosstools/updates/indigo/SR0 (Behøver ikke velge noe, det går automatisk når du legger inn lenken under). 
+http://download.jboss.org/jbosstools/updates/development/indigo/
+så installere all jboss tools (alle) og jboss maven integration
+(All JBoss Tools x.x og Maven Suport)
+
+Dele repository med cmdline-maven:
+Gå til Window -> Preferences -> Maven -> Installations
+og under "Global settings for embedded installation" legger du inn settings.xml-filen for maven.
+
+Legg til prosjektet i Eclipse:
+- File>Import
+- Vindu åpnes
+- Velg Maven>Existing Maven Project
+
+Subversion (SVN)
+Følge oppskrift herfra: https://www.usit.uio.no/om/organisasjon/sun/faglig/utviklerhandbok/felles-installasjon/subversion/
+For punkt 1-2:
+Velg Help > Install New Software > Indigo - http://download.eclipse.org/releases/indigo (fra dropdown, URLen skal ligge der allerede)
+
+
+
+=====================================================
+       DEPLOY
+=====================================================
+For aa deploye trengs
+- java 6 
+- JBoss AS 7
+- oracle driver (ojdbc6.jar)
+
+Dette maa gjoeres for foerste gang:
+- opprett en konfigmappe for epn, heretter $EPNKONFIG
+- legg src/main/resources-jbossas/institusjoner.xml dit
+- Last ned JBoss fra en av flg:
+https://access.redhat.com/jbossnetwork/restricted/listSoftware.html?downloadType=distributions&product=appplatform
+http://www.jboss.org/jbossas/downloads/ 
+
+(på jboss.org finner du ikke-supporterte versjoner)
+
+Per 2012-05-29 anbefales supportert EAP, versjon 6.0.Beta2.
+
+- gjøre klart for bruk av ÆØÅ i query string og oracle driver, 
+  se http://www.usit.uio.no/om/organisasjon/sun/faglig/utviklerhandbok/felles-installasjon/jboss/JBoss.html
+
+
+
+
+For våre prosjekter så legger vi fra 7 av informasjonen om databasekoblingene (tidligere epn-ds.xml) 
+rett inn i standalone.xml (konfigurasjon for serveren). 
+Den ligger i $JBOSS_HOME/standalone/configuration/standalone.xml
+- Åpne filen
+- Finn taggen <datasources>
+- Under denne legger du inn (NB - bytt ut med riktig brukernavn/passord/databaseinfo og ojdbc-filnavn
+<datasource jndi-name="java:/jdbc/epn/fsutv" pool-name="epnDS" enabled="true" jta="true" use-java-context="true" use-ccm="true">
+   <!-- for bruk av tnsnames.ora (start jboss med -Doracle.net.tns_admin=STI/TIL/MAPPE-MED-TNSNAMES.ORA-FILA -->
+   <connection-url>jdbc:oracle:thin:@FSUTV.uio.no</connection-url>
+   <!-- 
+     Utviklingsbase:
+     <connection-url>jdbc:oracle:thin:@suafutv.uio.no:1553/EPNUTV.uio.no</connection-url>
+   -->
+   <!-- 
+     For å huske hvilken versjon jeg bruker, pleier jeg å inkludere versjonsnumer i filnavnet.
+    -->
+   <driver>ojdbc</driver>
+   <security>
+     <user-name>BRUKERNAVN</user-name>
+     <password>PASSORD</password>
+  </security>
+</datasource>
+
+Nødvendige oppstartsparametre for JBoss:
+Dobbel klikk paa JBoss 7.0 Runtime Server, deretter klikk på open lauch configuration lenke.
+Her kan du definere følgende
+-Depn.konfigmappe=$EPNKONFG
+
+FERDIG MED JBOSS OPPSETT! Hurra! (Famous last words fra Alen: Nå skal det faktisk funke)
+
+Ikke noedvendige oppstartsparametre (men kjekt aa ha):
+Dok for jRebel finnes her:
+https://www.usit.uio.no/om/organisasjon/sun/faglig/utviklerhandbok/felles-installasjon/jrebel/
+ 
+*) for å bruke JRebel
+  I JBOss Server launch configuration legg til først:
+  -noverify -javaagent:/STI/TIL/JREBEL.JAR
+  Dersom du ønsker å bruke tnsnames.ora i stedet for epn-ds.xml må du gjøre følgende
+*) for aa benytte tnsnames.ora for aa finne Oracle databaser:
+  -Doracle.net.tns_admin=/STI/TIL/MAPPE-SOM-HAR-TNSNAMESORA-FIL
+
+
+Om ditt instans av Eclipse kjører i JRE bør du bytte dette om til JDK. Det gjør 
+du ved å denne strengen i jbdevstudio.ini -vm "C:\<sti til JDK, f.eks. jdk1.6.0_21>\bin\javaw.exe".
+
+
+

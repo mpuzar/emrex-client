@@ -1,0 +1,50 @@
+#results {
+	width: 500px;
+}
+
+#results header {
+	background: #1684a9; /* url('resources/img/li_open_blue.png') no-repeat 8px center;*/
+	color: #fff;
+	padding: 10px 5px 8px 15px;
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+#results table {
+	width: 100%;
+}
+
+#results th {
+	padding: 0;
+}
+
+#results th div {
+	background-color: #f1f1f1;
+	padding: 0 0 0 15px;
+	height: 40px;
+	/* vertical-align: middle; */
+	padding-top: 12px;
+	/*margin-top: 20px;*/
+}
+
+#results th input {
+	margin-top: -2px;
+}
+
+td.check {
+	width: 48px;
+}
+
+td.emnekode {
+}
+
+td.descr {
+}
+
+td.creds {
+	text-align: right;
+}
+
+.select2-container {
+	margin-bottom: 0;
+}

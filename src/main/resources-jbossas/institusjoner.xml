@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Oppsett av tilgjengelige EPN-institusjoner og databaser for brukere av EPN  -->
+<!-- 
+     Filen må legges i en konfigurasjonsmappe for epn.
+     Ved oppstart av JBoss, må JBoss kunne finne denne mappen. Det gjøres ved å
+     sette en java system property ved oppstart:
+     -Depn.konfigmappe=/STI/TIL/KONFIG 
+-->
+<institusjoner>
+  <institusjon displayKode ="fsutv" navn="Utviklingsbase for FS" dbNavn="fsutv" kode="UIO"/>
+  <institusjon displayKode ="fssbkursutv" navn="Kursbase for FS" dbNavn="fssbkursutv" kode="FSSBKURS"/>
+  <institusjon displayKode ="hvodemo_utv" navn="HVODEMO" dbNavn="hvodemo_utv" kode="HVODEMO"/>
+  <institusjon displayKode ="uisdemo_utv" navn="UISDEMO" dbNavn="uisdemo_utv" kode="UISDEMO"/>
+  <institusjon displayKode ="uibdemo_utv" navn="UIBDEMO" dbNavn="uibdemo_utv" kode="UIBDEMO"/>
+  <institusjon displayKode ="ntnudemo_utv" navn="NTNUDEMO" dbNavn="ntnudemo_utv" kode="NTNUDEMO"/>
+</institusjoner>

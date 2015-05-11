@@ -1,0 +1,9 @@
+/target
+/.classpath
+/.project
+*.DS_Store
+.settings
+/bin
+/src/main/resources-jbossas/fslogo.gif
+/keys
+*~

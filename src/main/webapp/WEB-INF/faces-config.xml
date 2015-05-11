@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="       http://java.sun.com/xml/ns/javaee       http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+ <navigation-rule>
+  <navigation-case>
+   <from-outcome>viewExpired</from-outcome>
+   <to-view-id>/login.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <navigation-case>
+   <from-outcome>error</from-outcome>
+   <to-view-id>/error.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <navigation-case>
+   <from-outcome>startPage</from-outcome>
+   <to-view-id>/export.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/index.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>navo</from-outcome>
+   <to-view-id>/oversikt.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ <!-- lifecycle>
+      <phase-listener>no.usit.norex.util.PhaseTracker</phase-listener>
+   </lifecycle
+ Write your navigation rules here. You are encouraged to use CDI for creating @Named managed beans. -->
+ <application>
+  <locale-config>
+   <default-locale>no</default-locale>
+   <supported-locale>nn</supported-locale>
+   <supported-locale>en</supported-locale>
+  </locale-config>
+  <resource-bundle>
+   <base-name>no.usit.norex.messages</base-name>
+   <var>norexmsgs</var>
+  </resource-bundle>
+ </application>
+ <factory>
+  <exception-handler-factory>no.usit.norex.exception.ApplicationExceptionHandlerFactory</exception-handler-factory>
+ </factory>
+</faces-config>

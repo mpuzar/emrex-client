@@ -1,0 +1,30 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<script>
+
+		/* HOVEDMENY
+			
+			Hver menuitem har
+			1) teksten som skal vises
+			2) selve lenken
+			3) hvilke sider som skal trigge at menyen blir forhåndsvalgt (filnavnet uten / og uten .jsf og parametere)
+			4) om menyen skal vises, her kan man bruke en EL-expression
+			5) evt. submenyer
+		*/
+		var menuitems = [
+			[ 'Login', '/login.jsf', 'login', #{not identity.loggedIn}, []],
+			[ 'Import results', '/import.jsf', 'import', #{identity.loggedIn}, []],
+			[ 'Export results', '/export.jsf', 'export', #{false and identity.loggedIn}, []]
+		];
+			
+		createMenu(null, menuitems, '#{request.contextPath}', '#{request.servletPath}', '#{request.queryString}');
+
+	</script>
+
+</ui:composition>

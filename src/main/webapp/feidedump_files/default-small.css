@@ -1,0 +1,31 @@
+@media screen and (max-width: 600px) {
+	.corner, .corner_t, .corner_tl, .corner_tr, .corner_bl, .corner_br, .corner_l, .corner_r, .corner_b {
+	    margin: 0px; padding: 0px;
+	    border: none;
+	    background: #ffffff none no-repeat;
+	}
+	body, form {
+		padding: 0px;
+		margin: 0px;
+	}
+	div#content {
+		margin: 0px;
+		/*font-size: 130%;*/
+	}
+
+	fieldset div.inputfields {
+		padding:0px;
+		width: auto;
+		text-align: left;
+	}
+	fieldset div.inputfields input {
+		display: block;
+	}
+	fieldset {
+		padding: 1em;
+		margin: 0px;
+		border: none;
+		border-top: 1px solid #999;
+		border-bottom: 1px solid #999;
+	}
+}

@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+<title>Enter your username and password</title>
+
+<link rel="stylesheet" type="text/css" href="resources/feidedump/default.css"/> 
+<script type="text/javascript" src="resources/feidedump/jquery.js"/>
+
+<script type="text/javascript">
+
+ <!-- Show and hide parts of the page, and turn off autocomplete of password. -->
+
+ $(document).ready(function() {
+   $("input#password").attr("autocomplete", "off");
+
+   $("div#loginhelplink").removeClass();
+   $("div#loginhelplink").addClass("loginhelp");
+
+   $("div#helpframe").hide();
+   $("div#privacyframe").hide();
+   $("div#infoframe").hide();
+   $("div#loginhelpframe").hide();
+
+   $("a[href$=#helpframe]").click(function(){
+     $("div#helpframe").toggle();
+     $("div#privacyframe").hide();
+     $("div#infoframe").hide();
+     $("div#loginhelpframe").hide();
+   });
+   $("a[href$=#privacyframe]").click(function(){
+     $("div#privacyframe").toggle();
+     $("div#helpframe").hide();
+     $("div#infoframe").hide();
+     $("div#loginhelpframe").hide();
+   });
+   $("a[href$=#infoframe]").click(function(){
+     $("div#infoframe").toggle();
+     $("div#helpframe").hide();
+     $("div#privacyframe").hide();
+     $("div#loginhelpframe").hide();
+   });
+   $("a[href$=#loginhelpframe]").click(function(){
+     $("div#loginhelpframe").toggle();
+     $("div#infoframe").hide();
+     $("div#helpframe").hide();
+     $("div#privacyframe").hide();
+   });
+ });
+
+ $(document).ready(function() {
+   if (window.top !== window.self) {
+     $("#input_iframe").val("1");
+   }
+ });
+
+</script></head>
+
+<body onload="SimpleSAML_focus(&#39;username&#39;);">
+
+
+<!-- <div id="borderframe"> -->
+<div class="corner_t">
+<div class="corner_l">
+<div class="corner_r">
+<div class="corner_b">
+		<div class="corner_tl"><div class="corner_tr"> <div class="corner_bl"> <div class="corner_br"> <div class="corner"><div id="logos">
+	<div class="minheight"></div>
+	<div id="languageframe">
+	<div id="languagebar">English | 
+<a href="#">Bokmål</a> | 
+<a href="#">Nynorsk</a> | 
+<a href="#">Sámegiella</a></div>	<br style="clear: both; height: 0px;"/>
+	</div>
+	</div>
+
+
+	<div id="content">
+		
+
+<div id="inputframe">
+	<h:form>
+	<fieldset>
+		<legend>Login through Feide</legend>
+
+		<p><b>Studentweb</b> has requested that you login.
+You have chosen <b>University of Oslo</b> as your affiliation. <a href="#">Change</a>?</p>		
+		
+		
+
+		<div class="inputfields">
+		<p><label for="username">Username</label>
+		<h:inputText class="inputtext" id="brukernavn" value="#{bruker.brukernavn}" requiredMessage="You need to specify the username" /></p>
+
+		<p><label for="password">Password</label>
+		<input class="inputtext" type="password" id="password" name="password" autocomplete="off"/></p>
+		<p:commandButton ajax="false" styleClass="submit"
+				value="Login"
+				action="#{dummyLogin.login}"/>
+
+		</div>
+		
+		<div id="loginhelplink" class="loginhelp"><a href="#">Forgot username or password?</a></div>
+		<div id="loginhelpframe" style="display: none;">
+                <p>Contact <b>University of Oslo</b>:</p><ul><li><a href="http://www.uio.no/tjenester/it/kontakt/houston/" target="_blank">Help desk homepage</a></li>
+<li><a href="mailto:houston@usit.uio.no">Send mail to help desk</a></li>
+<li><a href="https://brukerinfo.uio.no/">Change password</a></li></ul>		</div>
+	</fieldset>
+	</h:form>
+</div>
+
+
+</div></div></div></div></div></div></div></div></div> <!-- box -->
+
+
+<div id="bottomframe">
+<div class="help"><a href="#">Help</a></div>
+<div class="privacy"><a href="#">Privacy</a></div>
+<div class="info"><a href="#">More information</a></div>
+
+
+<div id="helpframe" style="display: none;">
+	<div class="helptext">
+		<h3>Help</h3>
+		<p><b>My login fails</b></p>
+		<p>You have chosen to login to <i>Cristin 2.0 (localhost utvikling)</i> through the Feide identity federation. Enter your username and password as issued by your institution. When you press login you will be forwarded to <i>Cristin 2.0 (localhost utvikling)</i>.</p> <p>If you are not able to login, please check your affiliation. <i>University of Oslo</i> is now selected as your home organization. If this is wrong you have to change affiliation. <a href="#">Change</a>?</p> <p>If you still have problem, contact your local help desk.</p>		<p>Contact information for your local help desk:</p><ul><li><a href="http://www.uio.no/tjenester/it/kontakt/houston/" target="_blank">Help desk homepage</a></li>
+<li><a href="mailto:houston@usit.uio.no">Send mail to help desk</a></li>
+<li><a href="https://brukerinfo.uio.no/">Change password</a></li></ul>	</div>
+</div>
+
+<div id="privacyframe" style="display: none;">
+	<div class="helptext">
+		<h3>Privacy</h3>
+		<p>Below is a list of information the service will be given about you after successful login. You will be given the possibility to consent to this after login on this page.</p>
+		<ul>
+		<li>Person's principal name at home organization</li><li>Identity number assigned by public authorities</li><li>User ID</li>		</ul>
+		<p><a href="https://www.feide.no/personvern-og-samtykke" target="_blank">Read more about privacy in Feide.</a></p>
+				
+	</div>
+</div>
+
+<div id="infoframe" style="display: none;">
+	<div class="helptext">
+		<h3>More information</h3>
+		<p>Cristin is a system for documenting research results, information and academic activities.</p>
+		<p><a href="http://usit.uio.no/" target="_blank">More information about Cristin 2.0 (localhost utvikling).</a></p>
+		<p>Cristin 2.0 (localhost utvikling) uses <a href="http://feide.no/" target="_blank">Feide</a> for login. Feide is organized under <a href="http://www.uninett.no/" target="_blank">UNINETT</a>.</p>
+		<img class="rightlogo" src="./feidedump_files/minilogo-feide.png" alt="Feide"/>
+		<img class="rightlogo" src="./feidedump_files/minilogo-uninett.png" alt="UNINETT"/>
+	</div>
+</div>
+
+</div> <!-- bottomframe -->
+
+</div> <!-- content -->
+
+
+
+
+</body></html>
+
+</ui:composition>

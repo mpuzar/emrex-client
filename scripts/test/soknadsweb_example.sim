@@ -1,0 +1,39 @@
+GET "/login.seam?inst=fsutv"
+EXPECT it to contain loginFnr
+
+POST "/login.seam" "loginFnr=loginFnr&loginFnr:fodselsnr=FODSELSNR&loginFnr%3Aj_id37=Log+in"
+
+IF it contains personForm
+	TERMINATE
+FI
+
+EXPECT it to contain id="loginPin"
+WAIT 1
+
+POST "/login.seam" "loginPin=loginPin&loginPin:pinkode=PINKODE&loginPin%3Aj_id59=Log+in"
+EXPECT it to contain Logget inn som
+
+GET "/personinfo.seam"
+POST "/personinfo.seam" "sprakVelger=sprakVelger&sprakVelger:sprakselect=ENGELSK"
+EXPECT it to contain personal information, like contact address
+
+GET "/dokumenter.seam"
+EXPECT it to contain uploadForm
+
+WAIT 1
+FILEUPLOAD "/dokumenter.seam" -FuploadForm=uploadForm -FuploadForm:typeAndreDokDeco:j_id105=BREV -FuploadForm:vedleggDeco:karaktererUpload=@/opt/leivhe/Documents/nomination.pdf -Ffilename=nevermind.pdf -FuploadForm:lagreAnnetCmd=OK -FuploadForm:datoFraDeco:datoFraCalInputDate=04.03.2013
+EXPECT it to contain The document was saved
+
+POST "/dokumenter.seam" "editKaraktererForm=editKaraktererForm&editKaraktererForm:andreDokListe:0:slettAndreDok=Delete"
+EXPECT it to contain The document is deleted
+
+FILEUPLOAD "/dokumenter.seam" -FuploadForm=uploadForm -FuploadForm:typeAndreDokDeco:j_id105=BREV -FuploadForm:vedleggDeco:karaktererUpload=@/opt/leivhe/boring.flac -Ffilename=nevermind -FuploadForm:lagreAnnetCmd=OK -FuploadForm:datoFraDeco:datoFraCalInputDate=04.03.2013
+#EXPECT it to contain DA_FIL_FOR_STOR
+
+#GET "/soknader.seam"
+#EXPECT it to contain
+
+#GET "/soknader.seam?actionMethod=soknader.xhtml%3AloginService.logout"
+#EXPECT it to contain loginFnr
+
+

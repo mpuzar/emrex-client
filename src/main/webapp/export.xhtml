@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:fun="http://java.sun.com/jsf/composite/components"
+	template="/WEB-INF/templates/default.xhtml">
+
+<ui:define name="body">
+
+ 	<ui:include src="/WEB-INF/templates/infoPanel.xhtml"/>
+ 	
+	<h2>Welcome, #{bruker.fulltnavn}</h2>
+
+	<h:form>
+		
+		<div style="display: block;">
+			<label class="label">Fetch the results from:</label>
+			<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
+				id="inst"
+				value="#{bruker.inst}"
+				onchange="enableDisableFetch();"
+				>
+				<f:selectItem noSelectionOption="true" itemLabel=""/>
+			    <f:selectItem itemLabel="University of Oslo" itemValue="UIO"/>
+			</h:selectOneMenu>
+			<h:message styleClass="errorMessageInplace" for="inst"/>
+	
+			<p:commandButton 
+				value="Fetch"
+				id="fetch"
+				styleClass="grey medium"
+				style="vertical-align: top; height: 37px; margin-left: 10px;"
+				action="#{nc.hentResultater}"
+				update="@form :resultater"
+				onclick="showInfoPanel('Fetching results', 'Please wait...', 'false', 'true');"
+				oncomplete="hideInfoPanel(); fixSelect2(); displayXml(true); showExportForm();"
+			/>
+			
+			<p:commandButton 
+				value="Reset"
+				id="reset"
+				styleClass="grey medium"
+				style="vertical-align: top; height: 37px; margin-left: 10px;"
+				ajax="true"
+				update="@form :resultater"
+				action="#{nc.tomResultater}"
+				oncomplete="fixSelect2(); displayXml(true); hideExportForm();"
+			/>
+			
+			<p:commandButton 
+				value="Reread file"
+				styleClass="grey medium"
+				style="vertical-align: top; height: 37px; margin-left: 10px;"
+				ajax="true"
+				update="@form"
+				action="#{nc.readFile()}"
+				onclick="showInfoPanel('Fetching results', 'Please wait...', 'false', 'true');"
+				oncomplete="hideInfoPanel(); fixSelect2();"
+			/>
+			
+		</div>
+		
+	</h:form>
+	
+
+	<h:panelGroup id="resultater">
+
+		<div id="results"/>
+		
+		<form id="exportForm" action="#{nc.returnURL}" method="post" style="display: none;">
+	
+			<input type="hidden" id="elmo" name="elmo" value="#{nc.resultaterXml}"/>
+			XML file length: #{nc.resultaterXml.length}<br/>
+			
+			<input type="submit" 
+				value="Import results"
+				class="green medium"
+				onclick="updateXml();"
+				style="vertical-align: top; height: 37px; margin-top: 20px;
+				       background-image: url('resources/img/icons_d/24x24/Download-alt-24x24.png');
+				       background-repeat: no-repeat;
+				       background-position: 7px 5px;
+				       padding-left: 38px;
+				       "
+			/>
+			
+		</form>
+
+	</h:panelGroup>
+
+
+	<script>
+		jQuerySun(document).ready(function() {
+			jQuerySun('.chzn-select,.chzn-select-deselect').data('placeholder', 'Choose the institution');
+			displayXml(true);
+
+			enableDisableFetch();
+		});
+	</script>
+	
+</ui:define>
+
+</ui:composition>
