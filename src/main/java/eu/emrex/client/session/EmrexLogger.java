@@ -1,4 +1,4 @@
-package no.usit.norex.session;
+package eu.emrex.client.session;
 
 import javax.faces.context.FacesContext;
 
@@ -7,12 +7,12 @@ import org.jboss.logging.Logger;
 //@Named("log")
 //@SessionScoped
 //@Startup
-public class NorexLogger {
+public class EmrexLogger {
 
     private Logger log;
 
 
-    public NorexLogger(Class<?> cl) {
+    public EmrexLogger(Class<?> cl) {
         log = Logger.getLogger(cl);
         if (log == null) {
             System.out.println("ERROR - COULD NOT GET LOGGER for " + cl);

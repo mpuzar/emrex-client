@@ -1,4 +1,4 @@
-package no.usit.norex.model.entity;
+package eu.emrex.client.model.entity;
 
 public class EmregCountry {
 
@@ -7,9 +7,9 @@ public class EmregCountry {
     private Boolean singleFetch;
 
 
-    public EmregCountry(String countryCode, String countryName, Boolean singleFetch) {
-        this.countryCode = countryCode;
-        this.countryName = countryName;
+    public EmregCountry(Object countryCode, Object countryName, Boolean singleFetch) {
+        this.countryCode = countryCode.toString();
+        this.countryName = countryName.toString();
         this.singleFetch = singleFetch;
     }
 

@@ -17,7 +17,7 @@
  </context-param>
  <context-param>
   <param-name>org.richfaces.skin</param-name>
-  <param-value>norex</param-value>
+  <param-value>emrex</param-value>
  </context-param>
  <context-param>
   <param-name>primefaces.THEME</param-name>
@@ -25,7 +25,7 @@
  </context-param>
  <filter>
   <filter-name>UTF8EncodingFilter</filter-name>
-  <filter-class>no.usit.norex.UTF8EncodingFilter</filter-class>
+  <filter-class>eu.emrex.client.UTF8EncodingFilter</filter-class>
  </filter>
  <filter-mapping>
   <filter-name>UTF8EncodingFilter</filter-name>

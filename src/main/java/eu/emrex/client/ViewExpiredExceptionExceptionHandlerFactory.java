@@ -1,4 +1,4 @@
-package no.usit.norex;
+package eu.emrex.client;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;

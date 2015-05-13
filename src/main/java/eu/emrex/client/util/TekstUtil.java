@@ -1,4 +1,4 @@
-package no.usit.norex.util;
+package eu.emrex.client.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

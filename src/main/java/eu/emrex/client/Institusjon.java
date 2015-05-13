@@ -1,4 +1,4 @@
-package no.usit.norex;
+package eu.emrex.client;
 
 import java.io.Serializable;
 

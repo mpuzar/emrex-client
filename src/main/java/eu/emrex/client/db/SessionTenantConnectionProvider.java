@@ -1,4 +1,4 @@
-package no.usit.norex.db;
+package eu.emrex.client.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,12 +9,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import no.usit.norex.session.Bruker;
-
 import org.hibernate.HibernateException;
 import org.hibernate.service.UnknownUnwrapTypeException;
 import org.hibernate.service.jdbc.connections.spi.ConnectionProvider;
 import org.jboss.logging.Logger;
+
+import eu.emrex.client.session.Bruker;
 
 public class SessionTenantConnectionProvider implements ConnectionProvider {
 

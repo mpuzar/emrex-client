@@ -1,4 +1,4 @@
-package no.usit.norex.session;
+package eu.emrex.client.session;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,10 +26,9 @@ import org.picketlink.idm.api.User;
 public class Bruker implements User, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final NorexLogger log = new NorexLogger(Bruker.class);
+    private final EmrexLogger log = new EmrexLogger(Bruker.class);
 
     private String inst = null;
-    private String country = null;
 
     private String brukernavn = "";
     private String fodselsnummer;
@@ -146,16 +145,6 @@ public class Bruker implements User, Serializable {
     public void setInst(String inst) {
         this.inst = inst;
         log.infof("setInst() %s", inst);
-    }
-
-
-    public String getCountry() {
-        return country;
-    }
-
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
 }

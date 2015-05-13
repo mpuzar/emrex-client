@@ -1,4 +1,4 @@
-package no.usit.norex.login;
+package eu.emrex.client.login;
 
 import java.io.File;
 import java.io.IOException;

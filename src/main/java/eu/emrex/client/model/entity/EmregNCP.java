@@ -1,4 +1,4 @@
-package no.usit.norex.model.entity;
+package eu.emrex.client.model.entity;
 
 public class EmregNCP {
 
@@ -10,15 +10,15 @@ public class EmregNCP {
 
 
     public EmregNCP(
-            String acronym,
-            String countryCode,
-            String url,
-            String pubKey,
+            Object acronym,
+            Object countryCode,
+            Object url,
+            Object pubKey,
             String[] institutions) {
-        this.acronym = acronym;
-        this.countryCode = countryCode;
-        this.url = url;
-        this.pubKey = pubKey;
+        this.acronym = acronym.toString();
+        this.countryCode = countryCode.toString();
+        this.url = url.toString();
+        this.pubKey = pubKey.toString();
         this.institutions = institutions;
     }
 

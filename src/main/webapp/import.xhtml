@@ -12,6 +12,17 @@
 
 <ui:define name="body">
 
+	<script>
+		jQuerySun(window).load(function() {
+			
+			jQuerySun('[id$=":fetch"]').attr('disabled', 'disabled');
+		});
+
+		function checkCountry() {
+		}
+	</script>
+	
+
 	<f:metadata>
 		<f:event type="preRenderView" listener="#{nc.checkImportData()}"/>
 	</f:metadata>
@@ -23,24 +34,45 @@
 	<h:form>
 	
 	<h:panelGroup layout="block" rendered="#{empty nc.resultaterXml}">
-		<label class="label">Fetch the results from:</label>
+		<label class="label">Choose country:</label>
 		<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
 			id="country"
-			value="#{bruker.country}"
-			onchange="enableDisableFetch();"
+			value="#{nc.chosenCountry}"
+			converter="countryConverter"
 			>
 			<f:selectItem noSelectionOption="true" itemLabel=""/>
-		    <f:selectItem itemLabel="Finland" itemValue="FI"/>
-		    <f:selectItem itemLabel="Sweden" itemValue="SE"/>
-		    <f:selectItem itemLabel="Croatia" itemValue="HR"/>
+		    <f:selectItems value="#{nc.countries}" var="country"
+		    	itemLabel="#{country.countryName}" itemValue="#{country}"/>
+		    <f:ajax execute="@this"
+		    	listener="#{nc.checkCountry}"
+		    	render="@form"
+		    	onevent="function(data) { if (data.status === 'success') { fixFun() }; }"/>
 		</h:selectOneMenu>
 		<h:message styleClass="errorMessageInplace" for="country"/>
+
+		<h:panelGroup layout="block" id="ncpPanel" rendered="#{nc.chosenCountry != null  and  nc.chosenCountry.singleFetch == true}">
+			<label class="label" style="margin-top: 10px;">Choose institution:</label>
+			<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
+				id="ncp"
+				value="#{nc.chosenNCP}"
+				converter="ncpConverter"
+				>
+				<f:selectItem noSelectionOption="true" itemLabel=""/>
+			    <f:selectItems value="#{nc.getNcpsByCountry(nc.chosenCountry.countryCode)}" var="ncp"
+			    	itemLabel="#{ncp.acronym}" itemValue="#{ncp}"
+			    	/>
+			    <f:ajax execute="@this"
+			    	render="@form"
+			    	onevent="function(data) { if (data.status === 'success') { fixFun() }; }"/>
+			</h:selectOneMenu>
+		</h:panelGroup>
 
 		<h:commandButton 
 			value="Get me there"
 			id="fetch"
 			styleClass="green medium"
-			style="vertical-align: top; height: 37px; margin-left: 10px;"
+			disabled="#{not nc.canFetch()}"
+			style="display: block; margin-top: 10px;"
 			action="#{nc.sendToCountry}"
 		/>
 		

@@ -1,4 +1,4 @@
-package no.usit.norex.login;
+package eu.emrex.client.login;
 
 import java.io.IOException;
 
@@ -8,11 +8,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import no.usit.norex.session.Bruker;
-import no.usit.norex.session.NorexLogger;
-
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.security.IdentityImpl;
+
+import eu.emrex.client.session.Bruker;
+import eu.emrex.client.session.EmrexLogger;
 
 @Named
 public class DummyLogin {
@@ -28,7 +28,7 @@ public class DummyLogin {
     @Inject
     private IdentityImpl identity;
 
-    private final NorexLogger log = new NorexLogger(DummyLogin.class);
+    private final EmrexLogger log = new EmrexLogger(DummyLogin.class);
 
 
     public String logout() {

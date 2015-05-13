@@ -29,7 +29,7 @@
   </navigation-case>
  </navigation-rule>
  <!-- lifecycle>
-      <phase-listener>no.usit.norex.util.PhaseTracker</phase-listener>
+      <phase-listener>eu.emrex.client.util.PhaseTracker</phase-listener>
    </lifecycle
  Write your navigation rules here. You are encouraged to use CDI for creating @Named managed beans. -->
  <application>
@@ -39,11 +39,11 @@
    <supported-locale>en</supported-locale>
   </locale-config>
   <resource-bundle>
-   <base-name>no.usit.norex.messages</base-name>
-   <var>norexmsgs</var>
+   <base-name>eu.emrex.client.messages</base-name>
+   <var>emrexmsgs</var>
   </resource-bundle>
  </application>
  <factory>
-  <exception-handler-factory>no.usit.norex.exception.ApplicationExceptionHandlerFactory</exception-handler-factory>
+  <exception-handler-factory>eu.emrex.client.exception.ApplicationExceptionHandlerFactory</exception-handler-factory>
  </factory>
 </faces-config>

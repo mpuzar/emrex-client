@@ -1,4 +1,4 @@
-package no.usit.norex.exception;
+package eu.emrex.client.exception;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -16,10 +16,10 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import javax.inject.Inject;
 
-import no.usit.norex.db.IngenDBException;
-
 import org.jboss.seam.security.Identity;
 import org.jboss.solder.logging.Logger;
+
+import eu.emrex.client.db.IngenDBException;
 
 /**
  * <p>

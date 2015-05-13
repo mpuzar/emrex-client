@@ -33,6 +33,7 @@
 		<org.richfaces.bom.version>4.2.1.Final</org.richfaces.bom.version>
 		<jboss.domain>default</jboss.domain>
 		<webdriver.client>htmlUnit</webdriver.client>
+		<commons.version>2.4</commons.version>
 	</properties>
 
 	<!-- Legger opp distributionManagement slik at maven deploy vet hvor den 
@@ -204,7 +205,7 @@
 				<scope>import</scope>
 			</dependency>
 
-
+                                                                                                        
 
 		</dependencies>
 	</dependencyManagement>
@@ -418,6 +419,13 @@
    			<artifactId>itext</artifactId>
    			<version>2.1.7</version>
 		</dependency>
+
+                <dependency>
+                        <groupId>commons-io</groupId>
+                        <artifactId>commons-io</artifactId>
+                        <version>${commons.version}</version>
+                </dependency>
+
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
             <groupId>junit</groupId>

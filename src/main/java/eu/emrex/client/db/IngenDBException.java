@@ -1,4 +1,4 @@
-package no.usit.norex.db;
+package eu.emrex.client.db;
 
 public class IngenDBException extends RuntimeException {
     private static final long serialVersionUID = 1L;

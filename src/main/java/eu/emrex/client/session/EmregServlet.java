@@ -1,22 +1,22 @@
-package no.usit.norex.session;
+package eu.emrex.client.session;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import no.usit.norex.model.entity.EmregCountry;
-import no.usit.norex.model.entity.EmregNCP;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import eu.emrex.client.model.entity.EmregCountry;
+import eu.emrex.client.model.entity.EmregNCP;
 
 @Stateless
 @Path("/emreg")
 public class EmregServlet {
 
-    private final NorexLogger log = new NorexLogger(EmregServlet.class);
+    private final EmrexLogger log = new EmrexLogger(EmregServlet.class);
 
 
     @GET
@@ -159,7 +159,7 @@ public class EmregServlet {
 
         insts = new String[] { "University of Siena" };
         n = new EmregNCP("UNISI", "IT", "http://www.unisi.it/ncp/", keyIT_UNISI, insts);
-        ret[3] = n;
+        ret[4] = n;
 
         return ret;
     }

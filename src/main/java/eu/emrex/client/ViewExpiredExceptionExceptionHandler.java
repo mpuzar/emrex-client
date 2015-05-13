@@ -1,4 +1,4 @@
-package no.usit.norex;
+package eu.emrex.client;
 
 import java.util.Iterator;
 import java.util.Map;

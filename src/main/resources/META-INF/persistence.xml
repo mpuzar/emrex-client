@@ -12,12 +12,12 @@
          <property name="hibernate.format_sql" value="false"/>
 
          <property name="hibernate.cache.use_second_level_cache" value="false"/>
-         <property name="hibernate.connection.provider_class" value="no.usit.norex.db.SessionTenantConnectionProvider"/>
+         <property name="hibernate.connection.provider_class" value="eu.emrex.client.db.SessionTenantConnectionProvider"/>
          <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
          <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
 
 
-         <property name="jboss.entity.manager.factory.jndi.name" value="java:/norex/emf"/>
+         <property name="jboss.entity.manager.factory.jndi.name" value="java:/emrex/emf"/>
 
       </properties>
    </persistence-unit>

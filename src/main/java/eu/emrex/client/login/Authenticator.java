@@ -1,4 +1,4 @@
-package no.usit.norex.login;
+package eu.emrex.client.login;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -6,10 +6,10 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import no.usit.norex.session.Bruker;
-import no.usit.norex.session.NorexLogger;
-
 import org.jboss.seam.security.BaseAuthenticator;
+
+import eu.emrex.client.session.Bruker;
+import eu.emrex.client.session.EmrexLogger;
 
 @Named
 public class Authenticator extends BaseAuthenticator {
@@ -19,7 +19,7 @@ public class Authenticator extends BaseAuthenticator {
     @PersistenceContext
     EntityManager em;
 
-    private final NorexLogger log = new NorexLogger(Authenticator.class);
+    private final EmrexLogger log = new EmrexLogger(Authenticator.class);
 
 
     @Override

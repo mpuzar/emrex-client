@@ -1,4 +1,4 @@
-package no.usit.norex.login;
+package eu.emrex.client.login;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,14 +14,15 @@ import no.ntnu.it.fw.saml2api.EduPerson;
 import no.ntnu.it.fw.saml2api.SAML2Exception;
 import no.ntnu.it.fw.saml2api.SAML2Util;
 import no.ntnu.it.fw.saml2api.exthiggins.SAMLLogoutResponse;
-import no.usit.norex.session.Bruker;
-import no.usit.norex.session.NorexLogger;
 
 import org.eclipse.higgins.saml2idp.saml2.SAMLAssertion;
 import org.eclipse.higgins.saml2idp.saml2.SAMLConstants;
 import org.eclipse.higgins.saml2idp.saml2.SAMLResponse;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.security.IdentityImpl;
+
+import eu.emrex.client.session.Bruker;
+import eu.emrex.client.session.EmrexLogger;
 
 @Named
 public class FeideLogin {
@@ -39,7 +40,7 @@ public class FeideLogin {
 
     @PersistenceContext
     private EntityManager em;
-    private final NorexLogger log = new NorexLogger(FeideLogin.class);
+    private final EmrexLogger log = new EmrexLogger(FeideLogin.class);
 
 
     public void logout() throws SAML2Exception, IOException {

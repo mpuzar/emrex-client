@@ -125,6 +125,7 @@ function checkDegreeForOneCourse(check, degree) {
 	}
 }
 
+/*
 function enableDisableFetch() {
 	var fetch = jQuerySun('[id$=":fetch"]');
 	var disabled = jQuerySun('select[id$=":inst"]').val() === "" ? true : false;
@@ -133,6 +134,12 @@ function enableDisableFetch() {
 	else
 		jQuerySun(fetch).removeAttr("disabled");
 }
+
+function enableFetch() {
+	var fetch = jQuerySun('[id$=":fetch"]');
+	jQuerySun(fetch).removeAttr("disabled");
+}
+*/
 
 
 function updateXml() {

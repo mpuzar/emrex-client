@@ -14,7 +14,7 @@
    </interceptors>
  <security:IdentityImpl>
   <s:modifies/>
-  <security:authenticatorClass>no.usit.norex.login.Authenticator</security:authenticatorClass>
+  <security:authenticatorClass>eu.emrex.client.login.Authenticator</security:authenticatorClass>
  </security:IdentityImpl>
    
 </beans>

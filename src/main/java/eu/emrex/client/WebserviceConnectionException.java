@@ -1,4 +1,4 @@
-package no.usit.norex;
+package eu.emrex.client;
 
 public class WebserviceConnectionException extends Exception {
 

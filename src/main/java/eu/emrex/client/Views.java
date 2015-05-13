@@ -1,4 +1,4 @@
-package no.usit.norex;
+package eu.emrex.client;
 
 import org.jboss.seam.faces.event.PhaseIdType;
 import org.jboss.seam.faces.rewrite.FacesRedirect;
