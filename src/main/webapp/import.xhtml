@@ -14,26 +14,59 @@
 
 	<script>
 		jQuerySun(window).load(function() {
-			
 			jQuerySun('[id$=":fetch"]').attr('disabled', 'disabled');
+			fixEngPlaceholder();
+			checkButton();
 		});
 
+		function fixEngPlaceholder() {
+			fixPlaceholder('', 'Choose from list');
+		}
+		
 		function checkCountry() {
+		}
+
+		function checkButton() {
+			var can = jQuerySun('#hiddenCheck').text();
+			if (can === "true") {
+				jQuerySun('#button').show();
+			} else {
+				jQuerySun('#button').hide();
+			}
 		}
 	</script>
 	
 
-	<f:metadata>
-		<f:event type="preRenderView" listener="#{nc.checkImportData()}"/>
-	</f:metadata>
+	<!--f:metadata>
+		<f:event type="preRenderView" listener="{nc.checkImportData()}"/>
+	</f:metadata-->
 
  	<ui:include src="/WEB-INF/templates/infoPanel.xhtml"/>
- 	
-	<h1>Import results</h1>
 
-	<h:form>
-	
+	<h:form >
+ 	
 	<h:panelGroup layout="block" rendered="#{empty nc.resultaterXml}">
+		<h1>Personal data</h1>
+		<label class="label">Given Names:</label>
+		<h:inputText value="#{bruker.firstName}"/>
+		<label class="label">Family Name:</label>
+		<h:inputText value="#{bruker.familyName}"/>
+		<br/>
+		<div style="float: left; clear: both; display: block;   margin-right: 60px;">
+			<label class="label">Birth date:<br/>(dd-mm-yyyy)</label>
+			<h:inputText value="#{bruker.birthDate}" style="width: 100px;"/>
+		</div>
+		<label class="label">Gender:<br/>(M/F)</label>
+		<h:inputText value="#{bruker.gender}" style="width: 30px;"/>
+		<p:commandButton styleClass="grey medium" style="display: block; margin-bottom: 20px;" value="Save changes"/>  
+	</h:panelGroup>
+	
+	<h1>Import results</h1>
+	<h:panelGroup layout="block" rendered="#{empty nc.resultaterXml}">
+	
+		<label class="label">
+		</label>
+	
 		<label class="label">Choose country:</label>
 		<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
 			id="country"
@@ -45,8 +78,8 @@
 		    	itemLabel="#{country.countryName}" itemValue="#{country}"/>
 		    <f:ajax execute="@this"
 		    	listener="#{nc.checkCountry}"
-		    	render="@form"
-		    	onevent="function(data) { if (data.status === 'success') { fixFun() }; }"/>
+		    	render="@form :button"
+		    	onevent="function(data) { if (data.status === 'success') { fixFun(); fixEngPlaceholder(); checkButton(); }; }"/>
 		</h:selectOneMenu>
 		<h:message styleClass="errorMessageInplace" for="country"/>
 
@@ -62,28 +95,43 @@
 			    	itemLabel="#{ncp.acronym}" itemValue="#{ncp}"
 			    	/>
 			    <f:ajax execute="@this"
-			    	render="@form"
-			    	onevent="function(data) { if (data.status === 'success') { fixFun() }; }"/>
+			    	render="@form :button"
+			    	onevent="function(data) { if (data.status === 'success') { fixFun(); fixEngPlaceholder(); checkButton(); }; }"/>
 			</h:selectOneMenu>
 		</h:panelGroup>
-
-		<h:commandButton 
-			value="Get me there"
-			id="fetch"
-			styleClass="green medium"
-			disabled="#{not nc.canFetch()}"
-			style="display: block; margin-top: 10px;"
-			action="#{nc.sendToCountry}"
-		/>
+		
+		<div id="hiddenCheck" style="display: none;">#{nc.canFetch()}</div>
 		
 	</h:panelGroup>
 
-	</h:form> 
-	
+	</h:form>
+
+	<h:panelGroup id="button" style="display: none;">
+		<form method="POST" action="#{nc.chosenNCP.url}">
+			<input type="hidden" name="sessionId" value="mySession12345"/>
+			<input type="hidden" name="returnUrl" value="#{nc.returnURL}"/>
+			<input type="submit" value="Get me there" class="green medium" style="display: block; margin-top: 10px;"/>
+		</form>
+	</h:panelGroup>
+
+		<!--h:commandButton 
+			value="Get me there"
+			id="fetch"
+			styleClass="green medium"
+			disabled="{not nc.canFetch()}"
+			style="display: block; margin-top: 10px;"
+			action="{nc.sendToCountry}"
+		/-->
+		
 		
 	<h:panelGroup id="resultater" rendered="#{not empty nc.resultaterXml}">
 
 		<div id="results"/>
+		
+		<h:panelGroup rendered="#{not empty nc.verificationResult}">
+			<h2>Verification result:</h2>
+			<pre>#{nc.verificationResultFormatted}</pre>
+		</h:panelGroup>
 		
 		<h:form id="importForm" >
 	

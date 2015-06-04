@@ -10,7 +10,7 @@
 		<!-- Denne fikser HTML5-støtte i IE8 -->
 		<fun:ie8fix/>
 
-		<title>#{not empty arkfaneTittel ? arkfaneTittel : 'Studentweb'}</title>
+		<title>#{not empty arkfaneTittel ? arkfaneTittel : 'EMREX Client'}</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		
@@ -18,12 +18,14 @@
 		<script src="resources/js/fun.js?rev=#{webapp.version}"/>
 		
 		<script type="text/javascript" src="resources/js/custom.js"/>
+		<script type="text/javascript" src="resources/js/elmo.js"/>
 		<script type="text/javascript" src="resources/js/select2_33b_sun.js"/>
 		
 		<link href="resources/css/fun.css?rev=#{webapp.version}" media="screen" rel="stylesheet" type="text/css" />
 		<link href="resources/css/select2.css" rel="stylesheet" type="text/css" />
 
 		<link href="resources/css/norex.css" rel="stylesheet" type="text/css" />
+		<link href="resources/css/elmo.css" rel="stylesheet" type="text/css" />
 
 		<ui:insert name="head"/>
 		
@@ -98,7 +100,7 @@
 		<!-- Header -->
 		<header>
 			<div class="container">
-				<h1><a href="import.jsf">Studentweb</a></h1>
+				<h1><a href="import.jsf">EMREX Client</a></h1>
 				<h2>Univesity of Oslo</h2>
 			</div>
 		</header>
@@ -130,7 +132,7 @@
 			<div class="container">
 			<h:panelGroup id="footerContainer">
 				<ul>
-					<li>Studentweb (Norex) #{webapp.version}</li>
+					<li>EMREX Client #{webapp.version}</li>
 				</ul>
 				</h:panelGroup>
 			</div>

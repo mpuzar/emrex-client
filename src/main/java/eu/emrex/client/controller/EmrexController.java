@@ -1,7 +1,10 @@
 package eu.emrex.client.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 
@@ -15,8 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import eu.emrex.client.model.entity.EmregCountry;
 import eu.emrex.client.model.entity.EmregNCP;
+import eu.emrex.client.model.entity.VerificationRequest;
 import eu.emrex.client.session.Bruker;
 import eu.emrex.client.session.EmrexLogger;
 import eu.emrex.client.util.WSUtil;
@@ -34,7 +43,8 @@ public class EmrexController implements Serializable {
     Bruker bruker;
 
     private String resultaterXml = null;
-    private String returnURL;
+    private String returnUrl;
+    private String smpUrl;
 
     private ArrayList<EmregCountry> countries;
     private ArrayList<EmregNCP> ncps;
@@ -42,9 +52,12 @@ public class EmrexController implements Serializable {
     private EmregCountry chosenCountry = null;
     private EmregNCP chosenNCP = null;
 
+    private String verificationResult = "";
+
 
     @PostConstruct
     public void init() {
+        smpUrl = System.getProperty("emrex.smp_url");
         // setResultaterXml(readFile());
         getDataFromSMP();
 
@@ -53,6 +66,8 @@ public class EmrexController implements Serializable {
         if (returnURL != null && !returnURL.equals("")) {
             setReturnURL(returnURL);
             log.info("returnURL: " + returnURL);
+        } else {
+            getReturnURL();
         }
     }
 
@@ -61,7 +76,7 @@ public class EmrexController implements Serializable {
         HttpURLConnection conn = null;
         String json = null;
         try {
-            conn = WSUtil.setupConnection(System.getProperty("emrex.smp_url"), "GET");
+            conn = WSUtil.setupConnection(smpUrl + "/emreg/list", "GET");
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 json = WSUtil.getDataFromConnection(conn);
 
@@ -100,160 +115,45 @@ public class EmrexController implements Serializable {
     }
 
 
-    public void checkCountry() {
-        log.info("Chosen country: " + chosenCountry.getCountryCode());
-    }
+    public void verifyXmlSignature() {
+        HttpURLConnection conn = null;
+        try {
+            conn = WSUtil.setupConnection(smpUrl + "/data/verify", "POST");
+            VerificationRequest req = new VerificationRequest();
 
+            req.setPubKey(getChosenNCP().getPubKey());
+            req.setSessionId("burek");
+            req.setData(getResultaterXml());
+            req.setBirthDate(bruker.getBirthDate());
+            req.setGender(bruker.getGender());
+            req.setFamilyName(bruker.getFamilyName());
+            req.setGivenNames(bruker.getFirstName());
 
-    public void checkImportData() throws IOException {
-        String xml = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-            .get("elmo");
-        if (xml != null && !xml.equals("")) {
-            log.info("Elmo detected!");
-            setResultaterXml(xml);
-        } else {
-            // log.info("Elmo not found");
+            Gson gson = new GsonBuilder().create();
+            String reqJson = gson.toJson(req);
+
+            log.info("Verifying request: " + reqJson);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(reqJson);
+            writer.close();
+            out.close();
+
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                String json = WSUtil.getDataFromConnection(conn);
+                log.info("Verified XML: " + json);
+                setVerificationResult(json);
+            }
+        } catch (Exception t) {
+            log.error("Failed to verify XML signature.");
         }
     }
 
 
-    // public void hentResultater() {
-    // String xml = kallWebservice("https://w3utv-jb01.uio.no/fsrest/rest/elm/report/" + bruker.getFodselsnummer(),
-    // false, null, null);
-    // setResultaterXml(xml);
-    // }
-    //
-    //
-    // public void tomResultater() {
-    // log.info("Tømmer resultater");
-    // setResultaterXml(null);
-    // }
-    //
-    //
-    // public StreamedContent lastNedResultater() {
-    // log.infof("lastNedResultater() %s", bruker.getInst());
-    // // https://jboss-test.uio.no/fsrest/rest/elm/report/30535890168
-    // String xml = getResultaterXml();
-    // if (xml != null) {
-    // InputStream stream;
-    // try {
-    // stream = new ByteArrayInputStream(xml.getBytes("UTF-8"));
-    // return new DefaultStreamedContent(
-    // stream,
-    // "text/xml",
-    // "Norex_Export.xml");
-    // // return new DefaultStreamedContent(
-    // // stream,
-    // // "text/xml",
-    // // "Norex_Export_" + TekstUtil.convertTimeToISOWithSecondsFilenameSafe(null)
-    // // + ".xml");
-    // } catch (UnsupportedEncodingException e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
-    // }
-    // return null;
-    // }
-    //
-    //
-    // public void importResults() {
-    // String paramName[] = { "elmReport", "nin" };
-    // String paramVal[] = { resultaterXml, bruker.getFodselsnummer() };
-    // String res = kallWebservice("https://w3utv-jb01.uio.no/fsrest/rest/elm/import", true, paramName, paramVal);
-    // log.info(paramVal[0]);
-    // // String res = kallWebservice("http://localhost:8123", true, paramName, paramVal);
-    // // + bruker.getFodselsnummer()
-    // skrivBrukerTilbakemelding(res);
-    // log.info(res);
-    // }
-    //
-    //
-    // private String kallWebservice(String url, boolean post, String[] paramName, String[] paramVal) {
-    // log.info("Kall mot url = " + url);
-    // try {
-    // String resultat;
-    // if (!post) {
-    // resultat = WSUtil.httpGet(url, this);
-    // } else {
-    // resultat = WSUtil.httpPost(url, paramName, paramVal, this);
-    // }
-    //
-    // // skrivBrukerTilbakemelding(resultat);
-    // return resultat;
-    //
-    // } catch (WebserviceConnectionException wEx) {
-    // handterWebserviceFeil("Hente data ", wEx);
-    // } catch (Exception e) {
-    // handterUkjentFeil(e);
-    // }
-    // return null;
-    // }
-    //
-    //
-    // private String genererFeilmeldingTilBruker(WebserviceConnectionException wEx) {
-    // String respons = null;
-    // switch (wEx.getResponsKode()) {
-    // case HttpURLConnection.HTTP_NOT_FOUND:
-    // respons = "No contact with webservice, please try again later.";
-    // break;
-    // case HttpURLConnection.HTTP_UNAUTHORIZED:
-    // respons = "No access to webservice, please contact the user support.";
-    // break;
-    // default:
-    // respons = "Error with webservice, error code = " + wEx.getResponsKode();
-    // respons += ", message from the database: " + wEx.getMessage();
-    // break;
-    // }
-    // return respons;
-    // }
-    //
-    //
-    // private void skrivBrukerTilbakemelding(String melding) {
-    // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(melding));
-    // }
-    //
-    //
-    // private void handterWebserviceFeil(String jobbnavn, WebserviceConnectionException wEx) {
-    // log.errorf("%s kaster exception med responskode = %s, klokkeslett = %s, feilmelding = %s", jobbnavn,
-    // wEx.getResponsKode(), TekstUtil.convertTimeToStringWithSeconds(TekstUtil.now()),
-    // konverterExceptionTilStackTraceString(wEx));
-    // String feilmelding = genererFeilmeldingTilBruker(wEx);
-    // skrivBrukerTilbakemelding(feilmelding);
-    // }
-    //
-    //
-    // private void handterUkjentFeil(Exception e) {
-    // log.error("Ukjent feil med webservice " + konverterExceptionTilStackTraceString(e));
-    // }
-    //
-    //
-    // private String konverterExceptionTilStackTraceString(Exception e) {
-    // // StringWriter sw = new StringWriter();
-    // // e.printStackTrace(new PrintWriter(sw));
-    // // return sw.toString();
-    // return e.getMessage();
-    //
-    // }
-    //
-    //
-    // public String getWsBrukernavn() {
-    // return wsBrukernavn;
-    // }
-    //
-    //
-    // public void setWsBrukernavn(String wsBrukernavn) {
-    // this.wsBrukernavn = wsBrukernavn;
-    // }
-    //
-    //
-    // public String getWsPassord() {
-    // return wsPassord;
-    // }
-    //
-    //
-    // public void setWsPassord(String wsPassord) {
-    // this.wsPassord = wsPassord;
-    // }
+    public void checkCountry() {
+        log.info("Chosen country: " + chosenCountry.getCountryCode());
+    }
+
 
     public String getResultaterXml() {
         return resultaterXml;
@@ -266,64 +166,38 @@ public class EmrexController implements Serializable {
     }
 
 
-    // public String readFile() {
-    // String fileName = System.getProperty(KONFIGMAPPE_PROPERTY) + File.separator + "elmotest.xml";
-    // try {
-    // @SuppressWarnings("resource")
-    // BufferedReader br = new BufferedReader(new FileReader(fileName));
-    // StringBuilder sb = new StringBuilder();
-    // String line = br.readLine();
+    // public void sendToCountry() throws IOException {
     //
-    // while (line != null) {
-    // sb.append(line);
-    // sb.append("\n");
-    // line = br.readLine();
+    // if (returnURL.indexOf("jboss-utv") != -1) {
+    // returnURL = returnURL.replaceAll("http:", "https:");
     // }
-    // setResultaterXml(sb.toString());
-    // return sb.toString();
-    // } catch (Exception e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // return null;
-    // }
+    //
+    // String outURL = chosenNCP.getUrl() + "?returnURL=" + returnURL;
+    //
+    // log.infof("Redirigerer til %s", outURL);
+    //
+    // FacesContext.getCurrentInstance().getExternalContext()
+    // .redirect(outURL);
     // }
     //
     //
-    // public Map<String, String> getCountryURL() {
-    // return countryURL;
-    // }
-    //
-    //
-    // public void setCountryURL(Map<String, String> countryURL) {
-    // this.countryURL = countryURL;
-    // }
-    //
-    //
-    public void sendToCountry() throws IOException {
-        String returnURL = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-            .getRequestURL()
-            .toString();
-
-        if (returnURL.indexOf("jboss-utv") != -1) {
-            returnURL = returnURL.replaceAll("http:", "https:");
-        }
-
-        String outURL = chosenNCP.getUrl() + "?returnURL=" + returnURL;
-
-        log.infof("Redirigerer til %s", outURL);
-
-        FacesContext.getCurrentInstance().getExternalContext()
-            .redirect(outURL);
-    }
-
-
     public String getReturnURL() {
-        return returnURL;
+        if (returnUrl == null || "".equals(returnUrl)) {
+            String ret = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+                .getRequestURL()
+                .toString();
+            if (!ret.contains("localhost")) {
+                ret = ret.replaceAll("http:", "https:");
+            }
+            ret = ret.replaceAll("\\/[^\\/]+$", "/ncpdata");
+            setReturnURL(ret);
+        }
+        return returnUrl;
     }
 
 
     public void setReturnURL(String returnURL) {
-        this.returnURL = returnURL;
+        this.returnUrl = returnURL;
     }
 
 
@@ -334,7 +208,7 @@ public class EmrexController implements Serializable {
 
     public void setChosenCountry(EmregCountry chosenCountry) {
         this.chosenCountry = chosenCountry;
-        if (chosenCountry.getSingleFetch() == false) {
+        if (chosenCountry != null && chosenCountry.getSingleFetch() == false) {
             setChosenNCP(getNcpsByCountry(chosenCountry.getCountryCode()).get(0));
         } else {
             setChosenNCP(null);
@@ -393,10 +267,40 @@ public class EmrexController implements Serializable {
     public boolean canFetch() {
         if (chosenCountry == null)
             return false;
+        log.info("chosenCountry.getSingleFetch(): " + chosenCountry.getSingleFetch());
+        log.info("chosenNCP: " + chosenNCP);
         if (chosenCountry.getSingleFetch() == false)
             return true;
         if (chosenNCP != null)
             return true;
         return false;
+    }
+
+
+    public void tomResultater() {
+        setChosenCountry(null);
+        setResultaterXml(null);
+    }
+
+
+    public String getVerificationResult() {
+        if (verificationResult == null) {
+            return "";
+        }
+        return verificationResult;
+    }
+
+
+    public String getVerificationResultFormatted() {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(getVerificationResult().trim());
+        String json = gson.toJson(je);
+        return json;
+    }
+
+
+    public void setVerificationResult(String verificationResult) {
+        this.verificationResult = verificationResult;
     }
 }

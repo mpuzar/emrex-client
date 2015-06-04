@@ -40,6 +40,11 @@ public class Bruker implements User, Serializable {
     private String nameID;
     private String fulltnavn;
 
+    private String firstName = "Dolly";
+    private String familyName = "Duck";
+    private String birthDate = "01-01-1980";
+    private String gender = "F";
+
 
     @PostConstruct
     public void init() {
@@ -145,6 +150,46 @@ public class Bruker implements User, Serializable {
     public void setInst(String inst) {
         this.inst = inst;
         log.infof("setInst() %s", inst);
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+
+    public String getFamilyName() {
+        return familyName;
+    }
+
+
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
+
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+
+    public String getGender() {
+        return gender;
+    }
+
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
 }

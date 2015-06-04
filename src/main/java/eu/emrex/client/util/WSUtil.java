@@ -3,8 +3,11 @@ package eu.emrex.client.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -19,6 +22,29 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class WSUtil {
+
+    public static void postData(HttpURLConnection conn, String[] paramName, String[] paramVal) throws Exception {
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.setUseCaches(false);
+        conn.setAllowUserInteraction(false);
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        // Create the form content
+        OutputStream out = conn.getOutputStream();
+        Writer writer = new OutputStreamWriter(out, "UTF-8");
+        for (int i = 0; i < paramName.length; i++) {
+            writer.write(paramName[i]);
+            writer.write("=");
+            writer.write(urlEncode(paramVal[i]));
+            writer.write("&");
+        }
+        writer.close();
+        out.close();
+
+    }
+
 
     // public static String
     // httpPost(String urlStr, String[] paramName, String[] paramVal, EmrexController nc) throws Exception {
