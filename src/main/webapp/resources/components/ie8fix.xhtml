@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite">
+    
+    <!-- INTERFACE -->
+	<cc:interface>
+	</cc:interface>
+
+	<!-- IMPLEMENTATION -->          
+    <cc:implementation>
+		<h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
+		<link href="resources/css/html5reset.css" media="screen" rel="stylesheet" type="text/css" />
+		<script>
+		    document.createElement('header');
+		    document.createElement('nav');
+		    document.createElement('section');
+		    document.createElement('article');
+		    document.createElement('aside');
+		    document.createElement('footer');
+		</script>
+		<h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+
+		<script>
+			window.funSetup = {};
+			window.funSetup.contextPath = "#{request.contextPath}";
+		</script>
+
+	</cc:implementation>
+</html>

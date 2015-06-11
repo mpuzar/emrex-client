@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:p="http://primefaces.org/ui">
+    <!-- xmlns:rich="http://richfaces.org/rich"> trengs ikke lenger -->
+    
+    <!-- INTERFACE -->
+	<cc:interface>
+		<cc:attribute name="title"/>
+		<cc:attribute name="close" default="true"/>
+		<cc:attribute name="width"/>
+		<cc:attribute name="height"/>
+		<cc:attribute name="style"/>
+		<cc:attribute name="contentStyle"/>
+		<cc:attribute name="styleClass"/>
+		<cc:attribute name="footerStyle"/>
+		<cc:attribute name="update"/>
+		<cc:attribute name="okcancel" default="false"/>
+		<cc:attribute name="ok" default="OK"/>
+		<cc:attribute name="cancel" default="Avbryt"/>
+		<cc:attribute name="okAction" method-signature="void method()"/>
+		<cc:attribute name="okOnStart"/>
+		<cc:attribute name="okOnComplete"/>
+		<cc:attribute name="widgetVar"/>
+		<cc:facet name="header"/>
+		<cc:facet name="buttons"/>
+	</cc:interface>
+
+	<!-- IMPLEMENTATION -->          
+	<cc:implementation>
+		
+		<p:dialog
+			styleClass="#{cc.attrs.styleClass} lightbox" 
+			style="#{cc.attrs.style}"
+			width="#{empty(cc.attrs.width)?'undefined':cc.attrs.width}"
+			height="#{empty(cc.attrs.height)?'undefined':cc.attrs.height}"
+			id="popup"
+			widgetVar="#{empty(cc.attrs.widgetVar) ? cc.attrs.id : cc.attrs.widgetVar}"
+			modal="true"
+			resizable="false"
+			draggable="false"
+			closable="#{cc.attrs.close}">
+
+			<f:facet name="header">
+				<header>
+					<h:panelGroup id="title">
+					#{cc.attrs.title}
+					</h:panelGroup>
+				</header>
+			</f:facet>
+
+			<article style="#{cc.attrs.contentStyle}">
+				<cc:insertChildren/>
+			</article>
+
+			<h:panelGroup rendered="#{not empty cc.facets.buttons or cc.attrs.okcancel=='true'}">
+				<footer style="#{cc.attrs.footerStyle}">
+					<div class="topNoBorder"/>
+					<div class="topBorder"/>
+					<c:if test="#{cc.attrs.okcancel == 'true'}">
+						<a class="medium cancel" onclick="hidePopup('#{cc.attrs.id}'); return false;">#{cc.attrs.cancel}</a>
+						<p:commandButton styleClass="medium green" value="#{cc.attrs.ok}" action="#{cc.attrs.okAction}" onstart="hidePopup('#{cc.attrs.id}'); #{cc.attrs.okOnStart}" update="#{cc.attrs.update}" oncomplete=" #{cc.attrs.okOnComplete}"/>
+					</c:if>
+					<c:if test="#{cc.attrs.okcancel != 'true'}">
+						<cc:renderFacet name="buttons"/>
+					</c:if>
+				</footer>	
+			</h:panelGroup>	
+
+		</p:dialog>
+		
+	</cc:implementation>
+</html>
