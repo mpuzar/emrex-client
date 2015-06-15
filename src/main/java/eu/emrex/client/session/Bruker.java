@@ -9,8 +9,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
-import no.ntnu.it.fw.saml2api.EduPerson;
-
 import org.picketlink.idm.api.User;
 
 /**
@@ -35,7 +33,6 @@ public class Bruker implements User, Serializable {
     private List<String> roles; /* Current roles based on your own preference */
     private List<String> allRoles; /* Roles as found in EPNAUTORISERTBRUKER */
 
-    private EduPerson eduPerson;
     private String feideSessionIndex;
     private String nameID;
     private String fulltnavn;
@@ -93,17 +90,6 @@ public class Bruker implements User, Serializable {
 
     public void setAllRoles(List<String> allRoles) {
         this.allRoles = allRoles;
-    }
-
-
-    public EduPerson getEduPerson() {
-        return eduPerson;
-    }
-
-
-    public void setEduPerson(EduPerson eduPerson) {
-        this.eduPerson = eduPerson;
-
     }
 
 
