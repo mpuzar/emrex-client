@@ -67,7 +67,11 @@
 		<label class="label">
 		</label>
 	
-		<label class="label">Choose country:</label>
+		<label class="label">Choose country: 
+			<p:commandLink styleClass="link" action="#{nc.getDataFromSMP}" value="reload list"
+				oncomplete="fixFun(); checkButton()"
+				update="@form :button"/>
+		</label>
 		<h:selectOneMenu styleClass="chzn-select-deselect nofloat" style="width: 225px;"
 			id="country"
 			value="#{nc.chosenCountry}"

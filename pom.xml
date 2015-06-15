@@ -230,12 +230,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-       <dependency>
-         <groupId>no.ntnu.itea</groupId>
-         <artifactId>saml2api-api</artifactId>
-         <version>1.1.2rc2.20130206</version>
-       </dependency>
-
 	<dependency>
 		<groupId>org.json</groupId>
 		<artifactId>json</artifactId>
