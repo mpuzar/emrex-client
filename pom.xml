@@ -354,33 +354,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>diff_match_patch</groupId>
-			<artifactId>diff_match_patch</artifactId>
-			<version>current</version>
-		</dependency>
-
-		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.outerj.daisy</groupId>
-			<artifactId>daisydiff</artifactId>
-			<type>jar</type>
-			<version>1.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate.javax.persistence</groupId>
-                    <artifactId>hibernate-jpa-2.0-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.cyberneko</groupId>
-                    <artifactId>html</artifactId>                
-                </exclusion>
-            </exclusions>
-      
 		</dependency>
 
 		<dependency>
@@ -400,13 +376,6 @@
 			<artifactId>resources-ckeditor</artifactId>
 			<version>0.5.1</version>
 		</dependency>
-
-		<!--dependency>
-			<groupId>no.usit</groupId>
-			<artifactId>fun</artifactId>
-			<version>trunk-SNAPSHOT</version>
-			<type>war</type>
-		</dependency-->
 
 		<dependency>
    			<groupId>com.lowagie</groupId>

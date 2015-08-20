@@ -39,7 +39,7 @@ public class Bruker implements User, Serializable {
 
     private String firstName = "Dolly";
     private String familyName = "Duck";
-    private String birthDate = "01-01-1980";
+    private String birthDate = "1980-12-31";
     private String gender = "F";
 
 
